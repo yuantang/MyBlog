@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archive</title>
+    {{template "head.html" .}}
+</head>
+<body>
+
+{{template "header.html" .}}
+<div id="wrap">
+    <div  class="container">
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-10">
+            {{if .err}}
+            <pre>{{.err}}</pre>
+            {{else}}
+            {{range $idx,$val:=.articles}}
+            <div class="articles">
+                <h2><a href="/article/{{$val.Id}}">{{$val.Title}}</a></h2>
+                <p>
+                    <span><a href="/user/{{$val.Author.Id}}">{{$val.Author.Nick}}</a></span>
+                    <span>发表于{{$val.Time}}</span>
+                </p>
+                <p>
+                    {{range $val.Tags}}
+                    <a href="/archive?tag={{.Name}}" class="btn btn-{{.RandColor}} btn-xs">{{.Name}}</a>
+                    {{end}}
+                </p>
+                <div class="content">
+                    {{$val.Content}}
+                </div>
+
+            </div>
+            {{end}}
+            {{end}}
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $('.articles').each(function () {
+
+         $(this).find('.content').html($(this).find('.content').text())
+
+    })
+
+</script>
+
+
+</body>
+</html>

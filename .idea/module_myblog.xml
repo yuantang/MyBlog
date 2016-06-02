@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_myblog" default="compile.module.myblog">
+  <dirname property="module.myblog.basedir" file="${ant.file.module_myblog}"/>
+  
+  <property name="module.jdk.home.myblog" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.myblog" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.myblog" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.myblog" value="-encoding UTF-8 -source 1.3 -target 1.3 ${compiler.args}"/>
+  
+  <property name="myblog.output.dir" value="undefined"/>
+  <property name="myblog.testoutput.dir" value="undefined"/>
+  
+  <path id="myblog.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="myblog.module.production.classpath">
+    <path refid="${module.jdk.classpath.myblog}"/>
+  </path>
+  
+  <path id="myblog.runtime.production.module.classpath"/>
+  
+  <path id="myblog.module.classpath">
+    <path refid="${module.jdk.classpath.myblog}"/>
+  </path>
+  
+  <path id="myblog.runtime.module.classpath"/>
+  
+  
+  <patternset id="excluded.from.module.myblog">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.myblog">
+    <patternset refid="excluded.from.module.myblog"/>
+  </patternset>
+  
+  
+  <target name="compile.module.myblog" depends="compile.module.myblog.production,compile.module.myblog.tests" description="Compile module MyBlog"/>
+  
+  <target name="compile.module.myblog.production" depends="register.custom.compilers" description="Compile module MyBlog; production classes"/>
+  
+  <target name="compile.module.myblog.tests" depends="register.custom.compilers,compile.module.myblog.production" description="compile module MyBlog; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.myblog" description="cleanup module">
+    <delete dir="${myblog.output.dir}"/>
+    <delete dir="${myblog.testoutput.dir}"/>
+  </target>
+</project>

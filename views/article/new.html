@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New</title>
+    {{template "head.html" .}}
+</head>
+<body>
+
+{{template "header.html" .}}
+
+<div id="wrap">
+    <div   class="container">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <form method="post">
+                <input name="title" class="form-control" placeholder="请输入标题">
+                <br>
+                <ul class="nav nav-pills" style="clear:none;">
+                    <li class="edit active" onclick="edit()"><a>编辑</a></li>
+                    <li class="show" onclick="compile()"><a>预览</a></li>
+                </ul>
+                <div class="form-group">
+                    <div id="div_edit">
+                        <textarea name="content" class="form-control" rows="20" style="height:500px;" placeholder="请输入正文"></textarea>
+                    </div>
+                    <div id="div_preview" class="form-control" rows="20" style="display: none;overflow: hidden ;height: auto;min-height: 500px"></div>
+                </div>
+                <br>
+                <input  class="btn btn-success" type="submit" value="提交"/>
+                <div class="pull-right">
+                    <a href="/markdown" target="_blank">
+                        <i class="fa fa-tip">
+                        </i>排版说明
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function edit(){
+        $(".show").removeClass("active");
+        $(".edit").addClass("active");
+        $("#div_edit").show();
+        $("#div_preview").hide();
+    }
+    function compile () {
+        $(".edit").removeClass("active");
+        $(".show").addClass("active");
+
+        var text = document.getElementsByName("content")[0].value;
+        var converter = new showdown.Converter();
+        //支持显示如同github的勾选框，默认false
+        //ep: - [x] This task is done
+        converter.setOption("tasklists", true);
+        //支持显示table，默认false
+        converter.setOption("tables", true);
+        converter.setOption("omitExtraWLInCodeBlocks",true);
+        converter.setOption("noHeaderId",true);
+
+        converter.setOption("prefixHeaderId",true);
+
+        converter.setOption("parseImgDimensions",true);
+
+        converter.setOption("headerLevelStart",true);
+
+        converter.setOption("simplifiedAutoLink",true);
+        converter.setOption("literalMidWordUnderscores",true);
+
+        converter.setOption("strikethrough",true);
+
+        converter.setOption("tablesHeaderId",true);
+
+        converter.setOption("ghCodeBlocks",true);
+
+        converter.setOption("tasklists",true);
+
+        converter.setOption("smoothLivePreview",true);
+
+
+        //支持图片大小设置，默认为false
+        converter.setOption("parseImgDimensions", true);
+        /**
+         **更多地请看https://github.com/showdownjs/showdown文档
+         **/
+        var html = converter.makeHtml(text);
+        $("#div_edit").hide();
+        $("#div_preview").show().html(html);
+
+    }
+
+    $('form').bind('submit', function(){
+
+        var tmp = ajaxSubmit(this, function(data){
+            if (tmp.responseJSON.success == true ){
+                alert("成功")
+                location.href='/article/'+tmp.responseJSON.content
+            }else{
+                alert(tmp.responseJSON.content)
+            }
+        })
+        return false;
+    })
+</script>
+
+</body>
+</html>

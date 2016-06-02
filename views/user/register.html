@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    {{template "head.html" .}}
+    <title>Register</title>
+</head>
+{{template "header.html" .}}
+
+<body>
+<div id="warp">
+    <div class="container">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <h2>Register an account</h2>
+            <div class="well">
+                <form action="/register" method="post">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input id="userid" class="form-control" type="" name="userid">
+                    </div>
+                    <div class="form-group">
+                        <label>Nickname</label>
+                        <input class="form-control" type="text" name="nick">
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" type="password" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label>Password2</label>
+                            <input class="form-control" type="password" name="password2">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" type="email" name="email">
+                        </div>
+                        <input type="submit" class="btn btn-success btn-lg btn-block" value="register"/>
+                    </div>
+                </form>
+                <br>
+                <p style="text-align: center;"><strong>I hava an account ! <a href="/login">Login one here</a></strong></p>
+
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('form').bind('submit',function(){
+        var tmp=ajaxSubmit(this,function(){
+            if (tmp.responseJSON.success == true ){
+                alert("成功")
+//                location.reload()
+                location.href="/login";
+            }else {
+                alert(tmp.responseJSON.content)
+            }
+        })
+        return false;
+    })
+</script>
+{{template "footer.html"}}
+</body>
+</html>

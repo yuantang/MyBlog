@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:>
+<head>
+    <title>User Profile</title>
+    {{template "head.html" .}}
+</head>
+<body>
+{{template "header.html" .}}
+<div>
+    <div id="warp">
+        <div class="container">
+            <div class="col-sm-3">
+                <div class="text-center">
+                    <h2>
+                        <a href="{{.u.Url}}">{{.u.Nick}}</a>
+                    </h2>
+                    <pre>{{.u.Info}}</pre>
+
+                    <table class="table">
+                        <tr>
+                            <td>Followers</td>
+                            <td>Following</td>
+                        </tr>
+                        <tr>
+                            <td>{{.u.Followers}}</td>
+                            <td>{{.u.Following}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+                    {{if .u.Hobby}}
+                    <h4>Hobby</h4>
+                    <div>
+                        {{$hobbys:=split .u.Hobby "."}}
+                        {{range $hobbys}}
+                        <a class="btn btn-success">{{.}}</a>
+                        {{end}}
+                    </div>
+                    {{end}}
+                    <h4>最热文章</h4>
+                    <div>....</div>
+                    <h4>最新文章</h4>
+                    <div>....</div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <h2><strong>{{.u.Nick}}</strong>发表的文章</h2>
+                {{range $index,$value:=.articles}}
+                <div class="articles">
+                    <h2><a href="/article/{{$value.Id}}">{{$value.Title}}</a></h2>
+                    <div>
+                        <p>
+                            <span>{{$value.Time}}</span>
+                            {{if $.user}}
+                            {{if eq $value.Author.Id $.user.Id}}
+                            <span class="pull-right">
+                                <a href="/article/edit/{{$value.Id}}">编辑</a>
+                                <a href="/article/delete/{{$value.Id}}">删除</a>
+                            </span>
+                            {{end}}
+                            {{end}}
+                        </p>
+                    </div>
+                    <div class="content">
+                        {{$value.Content}}
+                    </div>
+                </div>
+                {{end}}
+                <div>
+                    <h2><strong>{{.u.Nick}}</strong>最近发表的评论</h2>
+                    <div>
+                        {{if .replys}}
+                        {{range .replys}}
+                        <div>
+                            {{.Time}} 在<a href="/article/{{.Article.Id}}">{{.Article.Title}}</a>这篇文章中回复了
+                            <pre >{{.Content}}</pre>
+                        </div>
+                        {{end}}
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{template "footer.html"}}
+
+<script type="text/javascript">
+    $('.articles').each(function () {
+        $(this).find('.content').html($(this).find('.content').text())
+    })
+</script>
+</body>
+</html>

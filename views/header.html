@@ -1,0 +1,17 @@
+<header>
+    <nav class="navbox">
+  	<span style="margin-left: 20%;">
+  		<a href="/archive">博客浏览</a>
+  		<a href="/article/new">创建文章</a>
+  	</span>
+    <span class="pull-right" style="margin-right: 20%">
+	{{if .user}}
+    <a href="/user/{{.user.Id}}">我的主页</a>
+    <a href="/setting/">设置中心</a>
+    <a href="/logout">退出</a>
+    {{else}}
+    <a href="/login">加入我们</a>
+    {{end}}
+   </span>
+    </nav>
+</header>
