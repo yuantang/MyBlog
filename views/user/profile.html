@@ -46,23 +46,31 @@
                 <h2><strong>{{.u.Nick}}</strong>发表的文章</h2>
                 {{range $index,$value:=.articles}}
                 <div class="articles">
-                    <h2><a href="/article/{{$value.Id}}">{{$value.Title}}</a></h2>
-                    <div>
-                        <p>
-                            <span>{{$value.Time}}</span>
-                            {{if $.user}}
-                            {{if eq $value.Author.Id $.user.Id}}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><a href="/article/{{$value.Id}}">{{$value.Title}}</a></h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <div>
+                                <p>
+                                    <span>{{$value.Time}}</span>
+                                    {{if $.user}}
+                                    {{if eq $value.Author.Id $.user.Id}}
                             <span class="pull-right">
                                 <a href="/article/edit/{{$value.Id}}">编辑</a>
                                 <a href="/article/delete/{{$value.Id}}">删除</a>
                             </span>
-                            {{end}}
-                            {{end}}
-                        </p>
+                                    {{end}}
+                                    {{end}}
+                                </p>
+                            </div>
+                            <article class="content">
+                                {{$value.Content}}
+                            </article>
+                        </div>
                     </div>
-                    <article class="content">
-                        {{$value.Content}}
-                    </article>
+
                 </div>
                 {{end}}
                 <div>
