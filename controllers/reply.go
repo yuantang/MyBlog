@@ -15,7 +15,6 @@ func (c *ReplyController) New() {
 	c.CheckLogin()
 	u := c.GetSession("user").(class.User)
 
-
 	defer func() {
 		c.Data["json"] = c.ret
 		c.ServeJSON()
@@ -47,5 +46,6 @@ func (c *ReplyController) New() {
 		c.ret.Content = err.Error()
 	}
 	c.ret.OK = true
+	c.ret.Content=
 
 }

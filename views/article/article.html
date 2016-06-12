@@ -29,9 +29,9 @@
 					</span>
 			<!--<pre>{{.article.Title}}</pre>-->
 			<hr>
-			<div class="content">
+			<article  id="content"  >
 				{{.article.Content}}
-			</div>
+			</article>
 
 			<div>
 				<h2>评论</h2>
@@ -75,12 +75,15 @@
 </div>
 
 <script type="text/javascript">
-	//	var te=$('#content').html().replace(/&lt;/g,'<');
-	//	$('#content').html(te.replace(/&gt;/g,'>'))
+	var text=$('#content').text();
 
-	console.log($(".content").text())
+	var content=markDowmToThml(text);
 
-	$(".content").html($(".content").text())
+	$('#content').html(content);
+
+	if($('table')!=null){
+		$('table').addClass('table table-bordered')
+	};
 	function bindParent(id, nick) {
 		$("[name=parent_id]").val(id);
 		$("[name=content]").val('@' + nick + '  ').focus;
@@ -88,7 +91,18 @@
 	$('a[data-reply]').click(function() {
 		bindParent($(this).attr('data-reply'), $(this).attr('data-user'));
 	});
+	$('form').bind('submit', function(){
 
+		var tmp = ajaxSubmit(this, function(data){
+			if (tmp.responseJSON.success == true ){
+				alert("评论成功")
+				location.reload();
+			}else{
+				alert(tmp.responseJSON.content)
+			}
+		})
+		return false;
+	})
 </script>
 
 </body>

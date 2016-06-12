@@ -25,10 +25,6 @@
                             <td>{{.u.Followers}}</td>
                             <td>{{.u.Following}}</td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
 
                     </table>
                     {{if .u.Hobby}}
@@ -64,9 +60,9 @@
                             {{end}}
                         </p>
                     </div>
-                    <div class="content">
+                    <article class="content">
                         {{$value.Content}}
-                    </div>
+                    </article>
                 </div>
                 {{end}}
                 <div>
@@ -87,10 +83,13 @@
     </div>
 </div>
 {{template "footer.html"}}
-
 <script type="text/javascript">
     $('.articles').each(function () {
-        $(this).find('.content').html($(this).find('.content').text())
+        console.log($(this).find('.content').text())
+        $(this).find('.content').html(markDowmToThml($(this).find('.content').text()));
+        if($('table')!=null){
+            $('table').addClass('table table-bordered')
+        };
     })
 </script>
 </body>

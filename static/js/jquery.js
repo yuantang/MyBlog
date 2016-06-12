@@ -7313,9 +7313,6 @@ jQuery.fn.extend({
 	}
 });
 
-
-
-
 var rreturn = /\r/g;
 
 jQuery.fn.extend({

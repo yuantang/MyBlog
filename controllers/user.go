@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"MyBlog/models/class"
-	"github.com/russross/blackfriday"
 )
 
 type UserController struct {
@@ -16,12 +15,12 @@ func (c *UserController) Profile() {
 	u.ReadDB()
 	c.Data["u"] = u
 	as := class.Article{Author: u}.Gets()
-	for id,a:=range as{
-		unsafe := blackfriday.MarkdownBasic([] byte(a.Content))
-		//html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
-		a.Content=string(unsafe);
-		as[id]=a;
-	}
+	//for id,a:=range as{
+	//	unsafe := blackfriday.MarkdownBasic([] byte(a.Content))
+	//	//html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+	//	a.Content=string(unsafe);
+	//	as[id]=a;
+	//}
 	replys := class.Reply{Author: u}.Gets()
 	c.Data["articles"] = as
 	c.Data["replys"] = replys

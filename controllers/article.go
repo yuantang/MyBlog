@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"github.com/russross/blackfriday"
+	//"github.com/russross/blackfriday"
 	//"github.com/microcosm-cc/bluemonday"
 
 )
@@ -50,9 +50,10 @@ func (c *ArticleController) Get() {
 	//a.Replys =class.Reply{Article: a}.Gets()
 	a.Replys=class.Reply{Article:a}.Gets()//原始数据
 
-	unsafe := blackfriday.MarkdownBasic([] byte(a.Content))
-	//html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
-	a.Content=string(unsafe);
+	////unsafe := blackfriday.MarkdownBasic([] byte(a.Content))
+	////html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+	//a.Content=string(unsafe);
+
 	c.Data["article"] = a
 	c.Data["replyTree"]=a.GetReplyTree()
 	c.TplName = "article/article.html"
@@ -129,11 +130,11 @@ func (c *ArticleController )Archive()  {
 	}
 	if len(errmsg) == 0 {
 		rets := a.Gets()
-		for id,val:=range rets{
-			unsafe := blackfriday.MarkdownBasic([] byte(val.Content))
-			val.Content=string(unsafe)
-			rets[id]=val
-		}
+		//for id,val:=range rets{
+		//	unsafe := blackfriday.MarkdownBasic([] byte(val.Content))
+		//	val.Content=string(unsafe)
+		//	rets[id]=val
+		//}
 		c.Data["articles"] = rets
 	}
 

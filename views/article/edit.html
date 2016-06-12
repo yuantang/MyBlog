@@ -21,7 +21,7 @@
                 </ul>
                 <div class="form-group">
                     <div id="div_edit">
-                        <textarea name="content" class="form-control" rows="20" style="height:500px;" >{{.article.Content}}</textarea>
+                        <textarea  id="content" name="content" class="form-control"   onkeyup="getContent()" style="height:500px;" >{{.article.Content}}</textarea>
                     </div>
                     <div id="div_preview" class="form-control" rows="20" style="display: none;overflow: hidden ;height: auto;min-height: 500px"></div>
                 </div>
@@ -43,6 +43,10 @@
 </div>
 
 <script type="text/javascript">
+    function getContent() {
+        var content=$('#content').text();
+        $('#content').text(content)
+    }
 
     function edit(){
         $(".show").removeClass("active");
@@ -54,24 +58,18 @@
         $(".edit").removeClass("active");
         $(".show").addClass("active");
 
-        var text = document.getElementsByName("content")[0].value;
-        var converter = new showdown.Converter();
-        //支持显示如同github的勾选框，默认false
-        //ep: - [x] This task is done
-        converter.setOption("tasklists", true);
-        //支持显示table，默认false
-        converter.setOption("tables", true);
-        //支持图片大小设置，默认为false
-        converter.setOption("parseImgDimensions", true);
-        /**
-         **更多地请看https://github.com/showdownjs/showdown文档
-         **/
-        var html = converter.makeHtml(text);
+        var text=$('#content').val();
+        var html= markDowmToThml(text)
+
         $("#div_edit").hide();
         $("#div_preview").show().html(html);
 
-    }
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+        $('table').addClass('table table-bordered')
 
+    }
     $('form').bind('submit', function(){
 
         var tmp = ajaxSubmit(this, function(data){

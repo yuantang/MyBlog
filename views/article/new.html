@@ -50,46 +50,14 @@
     function compile () {
         $(".edit").removeClass("active");
         $(".show").addClass("active");
-
-        var text = document.getElementsByName("content")[0].value;
-        var converter = new showdown.Converter();
-        //支持显示如同github的勾选框，默认false
-        //ep: - [x] This task is done
-        converter.setOption("tasklists", true);
-        //支持显示table，默认false
-        converter.setOption("tables", true);
-        converter.setOption("omitExtraWLInCodeBlocks",true);
-        converter.setOption("noHeaderId",true);
-
-        converter.setOption("prefixHeaderId",true);
-
-        converter.setOption("parseImgDimensions",true);
-
-        converter.setOption("headerLevelStart",true);
-
-        converter.setOption("simplifiedAutoLink",true);
-        converter.setOption("literalMidWordUnderscores",true);
-
-        converter.setOption("strikethrough",true);
-
-        converter.setOption("tablesHeaderId",true);
-
-        converter.setOption("ghCodeBlocks",true);
-
-        converter.setOption("tasklists",true);
-
-        converter.setOption("smoothLivePreview",true);
-
-
-        //支持图片大小设置，默认为false
-        converter.setOption("parseImgDimensions", true);
-        /**
-         **更多地请看https://github.com/showdownjs/showdown文档
-         **/
-        var html = converter.makeHtml(text);
+        var text=$('#content').val();
+        var html = markDowmToThml(text);
         $("#div_edit").hide();
         $("#div_preview").show().html(html);
-
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+        $('table').addClass('table table-bordered')
     }
 
     $('form').bind('submit', function(){
