@@ -46,6 +46,5 @@ func (c *ReplyController) New() {
 		c.ret.Content = err.Error()
 	}
 	c.ret.OK = true
-	c.ret.Content=
 
 }

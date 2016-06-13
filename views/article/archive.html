@@ -31,27 +31,13 @@
                             <a href="/archive?tag={{.Name}}" class="btn btn-{{.RandColor}} btn-xs">{{.Name}}</a>
                             {{end}}
                         </p>
+                        <hr>
                         <article class="content">
                             {{$val.Content}}
                         </article>
                     </div>
 
                 </div>
-
-                <!--<h2><a href="/article/{{$val.Id}}">{{$val.Title}}</a></h2>-->
-                <!--<p>-->
-                <!--<span><a href="/user/{{$val.Author.Id}}">{{$val.Author.Nick}}</a></span>-->
-                <!--<span>发表于{{$val.Time}}</span>-->
-                <!--</p>-->
-                <!--<p>-->
-                <!--{{range $val.Tags}}-->
-                <!--<a href="/archive?tag={{.Name}}" class="btn btn-{{.RandColor}} btn-xs">{{.Name}}</a>-->
-                <!--{{end}}-->
-                <!--</p>-->
-                <!--<article class="content">-->
-                <!--{{$val.Content}}-->
-                <!--</article>-->
-
             </div>
             {{end}}
             {{end}}

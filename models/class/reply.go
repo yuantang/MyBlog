@@ -30,6 +30,16 @@ func (r *Reply)Create()  (n int64,err error) {
 	}
 return
 }
+func (r *Reply) Update() (error error) {
+	o := orm.NewOrm()
+	_, error = o.Update(r)
+	return
+}
+func (r *Reply) ReadDB() (error error) {
+	o := orm.NewOrm()
+	error = o.Read(r)
+	return
+}
 func (r Reply)Gets() (rets []*Reply)  {
 
 	o:=orm.NewOrm()

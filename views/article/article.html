@@ -17,9 +17,13 @@
 	<div class="container">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-8">
-			<h3>{{.article.Title}}</h3>
-			<span><a href="{{.article.Author.Id}}">{{.article.Author.Nick}}</a></span>
-			<span>{{.article.Time}}</span>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{.article.Title}}</h3>
+				</div>
+				<div class="panel-body">
+					<span><a href="/user/{{.article.Author.Id}}">{{.article.Author.Nick}}</a></span>
+					<span>{{.article.Time}}</span>
 					<span>
             {{if $.user}}
                   {{if eq .article.Author.Id $.user.Id}}
@@ -27,11 +31,15 @@
                    <a href="/article/edit/{{.article.Id}}">编辑</a>
                </span> {{end}} {{end}}
 					</span>
-			<!--<pre>{{.article.Title}}</pre>-->
-			<hr>
-			<article  id="content"  >
-				{{.article.Content}}
-			</article>
+					<!--<pre>{{.article.Title}}</pre>-->
+					<hr>
+					<article  id="content"  >
+						{{.article.Content}}
+					</article>
+
+				</div>
+			</div>
+
 
 			<div>
 				<h2>评论</h2>

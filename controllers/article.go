@@ -47,8 +47,9 @@ func (c *ArticleController) Get() {
 	a := &class.Article{Id: id}
 	a.ReadDB()
 	a.Author.ReadDB()
-	//a.Replys =class.Reply{Article: a}.Gets()
+
 	a.Replys=class.Reply{Article:a}.Gets()//原始数据
+
 
 	////unsafe := blackfriday.MarkdownBasic([] byte(a.Content))
 	////html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
@@ -103,7 +104,11 @@ func (c *ArticleController) Del(){
 	if u.Id!=a.Author.Id{
 		c.DoLogout()
 	}
-	//a.Delete()
+	replys:=class.Reply{Article:a}.Gets()//原始数据
+	for _,reply:=range replys  {
+		reply.Defunct=true
+		reply.Update()
+	}
 	a.Defunct = true
 	a.Update()
 	c.Redirect("/user/"+a.Author.Id,302)
