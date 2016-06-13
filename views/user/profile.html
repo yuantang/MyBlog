@@ -93,11 +93,14 @@
 </div>
 {{template "footer.html"}}
 <script type="text/javascript">
+
     $('.articles').each(function () {
-        console.log($(this).find('.content').text())
+
         $(this).find('.content').html(markDowmToThml($(this).find('.content').text()));
         if($('table')!=null){
+
             $('table').addClass('table table-bordered')
+
         };
     })
 </script>
